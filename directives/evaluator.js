@@ -2,14 +2,14 @@
     'use strict';
     var app = angular.module('taptap');
 
-    app.directive('staff', function() {
+    app.directive('evaluator', function() {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: '/directives/views/staff.html',
+            templateUrl: '/directives/views/evaluator.html',
             require: 'ngModel',
             scope: {
-                staff: '=ngModel'
+                evaluation: '=ngModel'
             }
         };
     });
