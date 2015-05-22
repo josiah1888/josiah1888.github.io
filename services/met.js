@@ -8,12 +8,16 @@
         function($interval, staffService, playService, feedbackService, evaluatorService) {
             var metService = {
                 startPlayer: _startPlayer,
+                stopPlayer: function() {
+                },
                 startComputer: _startComputer,
+                stopComputer: function() {
+                },
                 currentBeat: '',
                 length: 0,
                 min: 25,
                 max: 120,
-                tempo: 45,
+                tempo: 55,
                 countOff: 4, // in quarter notes
                 shouldPlayMet: true
             };
@@ -25,27 +29,27 @@
             var player;
             function Player() {
                 var isStarted = false;
-                var stop;
                 var counter;
 
                 this.start = function() {
                     if (!isStarted) {
                         isStarted = true;
+                        evaluatorService.evaluation.show = false;
                         counter = (metService.countOff) * -4;
                         staffService.clear('player');
-                        tryPlayMet(counter);
+                        playMet(counter);
 
                         var interval = $interval(function() {
                             if (counter < 0) {
-                                tryPlayMet(counter);
+                                playMet(counter);
                                 if (counter % 4 === 0) {
                                     feedbackService.setCountOff(counter / -4);
-
+                                    metService.currentBeat = null;
                                 }
                             } else {
                                 feedbackService.setCountOff(0);
                                 if ((counter % 2) === 0) {
-                                    tryPlayMet(counter);
+                                    playMet(counter);
 
                                 } else if ((counter - 1) % 2 === 0) {
                                     if (metService.currentBeat === 'metdownbeat') {
@@ -62,19 +66,18 @@
                                 if (counter === (metService.length * 2)) {
                                     staffService.end('player');
                                     isStarted = false;
-                                    stop();
+                                    metService.stopPlayer();
                                 }
 
                             }
                             counter++;
                         }, getSixteenth() / 2);
 
-                        stop = function() {
-                            if (!$interval.cancel(interval)) {
-                                console.log('Interval failed to cancel.');
-                            }
-
+                        metService.stopPlayer = function() {
+                            $interval.cancel(interval);
+                            feedbackService.clear();
                             evaluatorService.evaluate();
+                            player = undefined;
                         };
 
                         return isStarted;
@@ -93,11 +96,11 @@
             var computer;
             function Computer(beats) {
                 var counter;
-                var stop;
+                feedbackService.computerIsPlaying = true;
                 this.start = function() {
                     counter = 0;
                     var interval = $interval(function() {
-                        tryPlayMet(counter * 2);
+                        playMet(counter * 2);
 
                         if (beats[counter] === 'metdownbeat') {
                             staffService.add('computer', 'low');
@@ -112,20 +115,21 @@
 
                         if (counter === (metService.length - 1)) {
                             staffService.end('computer');
-                            stop();
+                            metService.stopComputer();
                         }
 
                         counter++;
                     }, getSixteenth());
 
-                    stop = function() {
-                        if (!$interval.cancel(interval)) {
-                            console.log('Interval failed to cancel.');
-                        }
+                    metService.stopComputer = function() {
+                        $interval.cancel(interval);
+                        feedbackService.computerIsPlaying = false;
                         feedbackService.clear();
+                        computer = undefined;
                     };
                 };
             }
+
             function _startComputer(beats) {
                 if (typeof computer === 'undefined') {
                     computer = new Computer(beats);
@@ -134,14 +138,11 @@
                 computer.start();
             }
 
-            function tryPlayMet(i) {
+            function playMet(i) {
                 if (metService.shouldPlayMet && (i % 4 === 0)) {
-                    playMet();
+                    playService.playBeat('csharp');
+                    feedbackService.showFeedback('csharp');
                 }
-            }
-
-            function playMet() {
-                playService.playBeat('csharp');
             }
 
             return metService;
