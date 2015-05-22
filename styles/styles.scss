@@ -99,29 +99,12 @@ $break-lg: 720px;
     }
 }
 
-<<<<<<< HEAD
 .repeat:before {
     content: "\e030";
 }
 
 .play:before {
     content: "\e072";
-=======
-.staff {
-    background-color: $color-primary--light;
-    text-align: center;
-    height: 100%;
-    max-height: 125px;
-}
-
-.evaluator {
-    @extend .staff;
-    background-color: $color-primary--dark;
-}
-
-&.ng-click-active, &.hit {
-    background-color: lighten($color-primary--light, 20%);
->>>>>>> origin/master
 }
 
 i.met {
@@ -139,7 +122,6 @@ i.met {
     content: "\f204";
 }
 
-<<<<<<< HEAD
 .ng-click-active, .hit {
     background-color: lighten($color-primary--light, 20%);
 }
@@ -147,9 +129,6 @@ i.met {
 input[type="range"].tempo {
     position: relative;
     bottom: 4px;
-=======
-input[type="range"] {
->>>>>>> origin/master
     display: inline-block;
     max-width: 150px;
     width: 25%;
