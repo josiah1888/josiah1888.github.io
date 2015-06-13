@@ -1,4 +1,8 @@
-﻿.jumbotron.main-view {
+.container {
+  padding-left: 0;
+  padding-right: 0; }
+
+.jumbotron.main-view {
   background-color: #FF8758; }
 .jumbotron.left-button {
   background-color: #32FFDC;
@@ -11,25 +15,24 @@
 .jumbotron.staff, .jumbotron.evaluator {
   background-color: #32FFDC;
   text-align: center;
-  height: 100%;
-  max-height: 125px; }
+  height: 100px; }
+  @media screen and (max-width: 320px) {
+    .jumbotron.staff, .jumbotron.evaluator {
+      height: 65px; } }
 .jumbotron.evaluator {
   background-color: #00B294; }
 .jumbotron .staff-line {
-  line-height: 0.75em;
+  line-height: .75em;
   font-family: monospace; }
   @media screen and (max-width: 720px) {
     .jumbotron .staff-line .staff-note:before {
-      font-size: small; }
- }
+      font-size: small; } }
   @media screen and (max-width: 480px) {
     .jumbotron .staff-line .staff-note:before {
-      font-size: x-small; }
- }
+      font-size: x-small; } }
   @media screen and (max-width: 320px) {
     .jumbotron .staff-line .staff-note:before {
-      font-size: xx-small; }
- }
+      font-size: xx-small; } }
   .jumbotron .staff-line .staff-note.off:before {
     color: #00e5bd;
     content: "\e157"; }
@@ -52,6 +55,17 @@
     color: #000;
     background-color: #FF8758;
     font-size: large !important; }
+
+input.count-off {
+  position: relative;
+  bottom: 3px;
+  background-color: #ccc;
+  border-color: #ccc;
+  border-width: 1px;
+  width: 35px;
+  padding-left: 5px; }
+  input.count-off::-webkit-inner-spin-button {
+    color: #888; }
 
 .repeat:before {
   content: "\e030"; }
@@ -103,6 +117,9 @@ input[type="range"].tempo {
 label {
   position: relative;
   bottom: 3px; }
+  @media screen and (max-width: 480px) {
+    label {
+      font-size: small; } }
 
 .countOff {
   position: fixed;
@@ -117,7 +134,6 @@ label {
   overflow: auto; }
 
 .btn--nav {
-  -webkit-box-shadow: 0 10px 14px -7px #00b294;
   -webkit-box-shadow: 0 10px 14px -7px #00b294;
   box-shadow: 0 10px 14px -7px #00b294;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #00b294), color-stop(1, #00b294));
@@ -156,11 +172,9 @@ label {
     top: 1px; }
   @media screen and (max-width: 480px) {
     .btn--nav {
-      font-size: x-small; }
- }
+      font-size: x-small; } }
   @media screen and (max-width: 320px) {
     .btn--nav {
-      font-size: xx-small; }
- }
+      font-size: xx-small; } }
 
 /*# sourceMappingURL=styles.css.map */

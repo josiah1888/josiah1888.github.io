@@ -5,9 +5,20 @@ $color-primary--dark: #00B294;
 $color-complement--light: #FF8758;
 $color-complement--dark: #FF6C32;
 
+$color-grey-light: #ccc;
+$color-grey-dark: #888;
+
 $break-sm: 320px;
 $break-md: 480px;
 $break-lg: 720px;
+
+$jumbotron-height: 100px;
+
+.container {
+  padding-left: 0;
+  padding-right: 0;
+  // trying to compile this.
+}
 
 .jumbotron {
     &.main-view {
@@ -29,8 +40,11 @@ $break-lg: 720px;
     &.staff {
         background-color: $color-primary--light;
         text-align: center;
-        height: 100%;
-        max-height: 125px;
+        height: $jumbotron-height;
+
+        @media screen and (max-width: $break-sm) {
+            height: $jumbotron-height * .65;
+        }
     }
 
     &.evaluator {
@@ -99,6 +113,23 @@ $break-lg: 720px;
     }
 }
 
+input.count-off {
+    position: relative;
+    bottom: 3px;
+    background-color: $color-grey-light;
+    border-color: $color-grey-light;
+    border-width: 1px;
+    width: 35px;
+    padding-left: 5px;
+
+    &::-webkit-inner-spin-button {
+        color: $color-grey-dark;
+    }
+}
+
+label.count-off {
+}
+
 .repeat:before {
     content: "\e030";
 }
@@ -164,6 +195,10 @@ input[type="range"].tempo {
 label {
     position: relative;
     bottom: 3px;
+
+    @media screen and (max-width: $break-md) {
+        font-size: small;
+    }
 }
 
 .countOff {
@@ -181,7 +216,6 @@ label {
 
 
 .btn--nav {
-    -webkit-box-shadow: 0 10px 14px -7px #00b294;
     -webkit-box-shadow: 0 10px 14px -7px #00b294;
     box-shadow: 0 10px 14px -7px #00b294;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #00b294), color-stop(1, #00b294));
